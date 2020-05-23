@@ -1,0 +1,91 @@
+一、常用指令
+1、属性绑定 v-bind,简写可忽略指令名称 
+2、事件绑定 v-on,简写用 @代替指令名称
+3、循环渲染 v-for ,可用于迭代数组、对象、类数结构，渲染时会按 Object.keys() 的顺序遍历
+4、双向绑定 v-model ，用于绑定组件 data 与 表单域的值，v-model会忽略所有表单元素的value、checked、selected特性的初始值
+5、删除判断 v-if,如果false则该元素被删除,连续条件指令拍配合使用 v-if、 v-else-if、 v-else
+6、呈现判断 v-show,如果false则该元素被隐藏
+7、单次渲染 v-once ，该元素内的插值只渲染一次
+8、元素文本 v-text, 显示元素的 textContent
+9、元素片段 v-html, 显示元素的 innerHTML
+10、不编译  v-pre ,不编译该元素，显示原始的差值符号，可能在做调试的时候有用
+11、延迟编译 v-cloak, 延迟编译，可能在页面加载时会观察到闪烁
+12、替换组件 is 指令，is 可以指定渲染时使用组件来替换标签。 ul、ol、table、select 限制了能被它包裹的元素，而一些像 li、option、tr 这样的元素只能作为特定元素的子元素
+13、插槽内容 v-slot，在父组件模板内定义子组件的具名插槽渲染的内容
+14、内联模板 inline-template 这个特殊的特性出现在一个子组件上时，这个组件将会使用其里面的内容作为模板，而不是将其作为被分发的slot内容。
+
+二、v-model 修饰符
+1、v-model.lazy 输入框在 onchang 时间之后才同步到 model
+2、v-model.number 输入值同步到 model 时转为 number 型
+3、v-model.trim 输入值同步到 model 时去掉首尾空格
+
+三、v-on 修饰符
+1、.stop 阻止事件继续传播
+2、.prevent 事件不再重载页面
+3、.capture 使用事件捕获模式,即元素自身触发的事件先在此处处理，然后才交由内部元素进行处理
+4、.self 只当在 event.target 是当前元素自身时触发处理函数
+5、.once 事件将只会触发一次
+6、.passive 告诉浏览器你不想阻止事件的默认行为
+使用修饰符时，顺序很重要，相应的代码会以同样的顺序产生。
+因此，用v-on:click.prevent.self会阻止所有的点击，而 v-on:click.self.prevent 只会阻止对元素自身的点击。
+
+
+属性绑定
+<a v-bind:href="url">...</a>
+<a :href="url">...</a>
+<a v-bind:class="{ active: isActive }">类名绑定配置</a>
+<p :class="[{'is-active':activeClass},errorClass]">类名绑定的数组语法</p>
+<p v-bind:style="{ color: 'green', fontSize: '16px' }">style样式</p>
+
+事件绑定
+<a v-on:click="doSomething">...</a>
+<a @click="doSomething">...</a>
+
+
+循环
+<ol>
+<li v-for="item in items">
+  {{ item.text }}
+</li>
+</ol>
+
+<ul id="example-2">
+  <li v-for="(item, index) in items">
+    {{ index }} - {{ item.message }}
+  </li>
+</ul>
+
+删除判断
+<p v-if="seen">seen为true,现在你看到我了</p>
+
+多重条件判断，这些条件指令元素必须相邻紧接
+<div v-if="type==='A'">
+    A
+</div>
+<div v-else-if="type==='B'">
+    B
+</div>
+<div v-else-if="type==='C'">
+    C
+</div>
+<div v-else>
+    Not A,B,C
+</div>
+
+呈现判断
+<p v-show="seen">seen为true,现在你看到我了</p>
+
+单次渲染
+<span v-once>这个将不会再次随msg的值改变: {{ msg }}</span>
+
+替换组件
+<table>
+    <!-- 不能写成 <my-row />，table 内的子元素类型有限定 -->
+  <tr is="my-row"></tr>
+</table>
+另外绑定is属性用法： vue 的保留动态组件 component，让多个组件使用同一个挂载点，并动态切换。
+childComName 是一个变化的值，取值范围是切换的组件名
+<component v-bind:is='childComName' /> 
+
+
+

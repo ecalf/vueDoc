@@ -1,0 +1,138 @@
+一、基本用法
+<script>
+// 1. 定义 (路由) 组件。
+// 可以从其他文件 import 进来
+const Foo = { template: '<div>foo</div>' }
+const Bar = { template: '<div>bar</div>' }
+
+// 2. 定义路由
+const routes = [
+  { path: '/foo', component: Foo },
+  { path: '/bar', component: Bar }
+]
+
+// 3. 创建 router 实例，然后传 `routes` 配置
+// 你还可以传别的配置参数, 不过先这么简单着吧。
+const router = new VueRouter({
+  routes // (缩写) 相当于 routes: routes
+})
+
+// 4. 创建和挂载根实例。
+const Com = Vue.extend({
+    routes:router
+});
+</script>
+
+
+
+//5、渲染位置,router-link 组件导航，router-view 呈现要渲染的组件
+<div id="app">
+  <h1>Hello App!</h1>
+  <p>
+    <!-- 使用 router-link 组件来导航. -->
+    <!-- 通过传入 `to` 属性指定链接. -->
+    <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+    <router-link to="/foo">Go to Foo</router-link>
+    <router-link to="/bar">Go to Bar</router-link>
+  </p>
+  <!-- 路由出口 -->
+  <!-- 路由匹配到的组件将渲染在这里 -->
+  <router-view></router-view>
+</div>
+
+
+//6、嵌套路由
+<script>
+const router = new VueRouter({
+    routes: [
+    {
+      path: '/foo',
+      component: Foo,
+      children: [//嵌套子路由
+        { path: 'bar', component: Bar }
+      ]
+    }
+    ]
+})
+</script>
+
+//7、命名路由
+<script>
+const router = new VueRouter({
+    routes: [
+    {
+      path: '/user/:userId',
+      name: 'user',//路由的命名
+      component: User
+    }
+    ]
+});
+</script>
+
+<router-link :to="{ name: 'user', params: { userId: 123 }}">跳转到命名路由</router-link>
+
+
+//8、命名视图，用于在一个界面上展示多个匹配视图
+<script>
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/',
+      components: {
+        default: Foo,
+        a: Bar,
+        b: Baz
+      }
+    }
+  ]
+});  
+</script>
+
+<div>
+    <router-view class="view one"></router-view>
+    <router-view class="view two" name="a"></router-view>
+    <router-view class="view three" name="b"></router-view>
+</div>
+
+9、路由组件传参，使用 prop 配置参数
+
+
+10、重定向
+<script>
+const router = new VueRouter({
+    routes: [
+        { path: '/a', redirect: '/b' }
+    ]
+})
+</script>
+
+
+
+11、history API 模式
+vue-router 默认 hash 模式，配置参数为   mode: 'history' 即可使用 history API 模式；
+<script>
+    const router = new VueRouter({
+        mode: 'history',
+        routes: [...]
+    })
+</script>
+
+
+二、路由参数
+// 动态路径参数 以冒号开头
+{ path: '/user/:id', component: User }
+当匹配到一个路由时，参数值会被设置到 this.$route.params 
+例如 this.$route.params.id 
+
+路由对象的属性
+$route = {
+    path，
+    fullPath，
+    params，
+    query，
+    hash，
+    matched
+
+
+}
+
