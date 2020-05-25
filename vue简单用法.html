@@ -204,7 +204,7 @@ new Vue({
     methd2:function(){ console.log('vm.methd2 is called'); }, //自定义方法供组件调用
 
     //资源相关
-    filters:{//类似 ejs 的模板过滤器,通过管道符从左向右可以执行多个过滤器，filter 内不能通过 this 访问组件 value|dataFilter1(value,arg1,arg2)|dataFilter2
+    filters:{//类似 ejs 的模板过滤器,通过管道符从左向右可以执行多个过滤器，只能用在模板插值和v-bind命令内，filter 内不能通过 this 访问组件 value|dataFilter1(value,arg1,arg2)|dataFilter2
         dataFilter1: function (value,arg1,arg2,...) { return value+arg1+arg2; }
     },
     directives:{//自定义指令，对元素功能进行增强
