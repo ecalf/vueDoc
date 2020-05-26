@@ -238,7 +238,7 @@ new Vue({
     beforeMount:Function, //该钩子在服务器端渲染期间不被调用
     mounted:Function,//注意 mounted 不会承诺所有的子组件也都一起被挂载,如果你希望等到整个视图都渲染完毕，可以用 vm.$nextTick 执行你的代码
     beforeUpdate:Function,
-    updated:Function,
+    updated:Function, //在更新周期内处理逻辑时如果有修改数据，应该注意加上条件判断避免死循环。
     activated:Function,//keep-alive 组件激活时调用,该钩子在服务器端渲染期间不被调用。
     deactivated:Function,
     beforeDestroy:Function,
