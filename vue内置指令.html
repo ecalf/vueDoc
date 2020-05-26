@@ -7,7 +7,7 @@
 6、呈现判断 v-show,如果false则该元素被隐藏
 7、单次渲染 v-once ，该元素内的插值只渲染一次
 8、元素文本 v-text, 显示元素的 textContent
-9、元素片段 v-html, 显示元素的 innerHTML
+9、元素片段 v-html, 显示元素的 innerHTML，该指令渲染出来的节点无法在 scoped 的style内置设置样式,/deep/指令可以处理但经常在样式编译时报错
 10、不编译  v-pre ,不编译该元素，显示原始的差值符号，可能在做调试的时候有用
 11、延迟编译 v-cloak, 延迟编译，可能在页面加载时会观察到闪烁
 12、替换组件 is 指令，is 可以指定渲染时使用组件来替换标签。 ul、ol、table、select 限制了能被它包裹的元素，而一些像 li、option、tr 这样的元素只能作为特定元素的子元素
